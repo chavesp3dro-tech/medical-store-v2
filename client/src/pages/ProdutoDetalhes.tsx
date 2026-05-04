@@ -1,10 +1,8 @@
 import { useRoute } from "wouter";
 import { trpc } from "@/lib/trpc";
 import Navbar from "@/components/Navbar";
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { useLocation } from "wouter";
-import { ChevronLeft, MessageCircle, Phone } from "lucide-react";
+import { Stethoscope } from "lucide-react";
 import { useState } from "react";
 
 export default function ProdutoDetalhes() {
@@ -20,10 +18,10 @@ export default function ProdutoDetalhes() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen" style={{ backgroundColor: 'var(--platinum)' }}>
         <Navbar />
         <div className="container py-12">
-          <p>Carregando...</p>
+          <p style={{ color: 'var(--text-muted)' }}>Carregando...</p>
         </div>
       </div>
     );
@@ -31,11 +29,17 @@ export default function ProdutoDetalhes() {
 
   if (!product) {
     return (
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen" style={{ backgroundColor: 'var(--platinum)' }}>
         <Navbar />
         <div className="container py-12">
-          <p>Produto não encontrado</p>
-          <Button onClick={() => navigate("/catalogo")}>Voltar ao Catálogo</Button>
+          <p style={{ color: 'var(--text-muted)' }}>Produto não encontrado</p>
+          <button
+            onClick={() => navigate("/catalogo")}
+            className="mt-4 px-6 py-2.5 rounded-full text-white text-sm font-medium"
+            style={{ backgroundColor: 'var(--navy-deep)' }}
+          >
+            Voltar ao Catálogo
+          </button>
         </div>
       </div>
     );
@@ -56,125 +60,109 @@ export default function ProdutoDetalhes() {
     navigate("/contato");
   };
 
+  const price = typeof product.price === 'string'
+    ? parseFloat(product.price).toLocaleString('pt-BR', { minimumFractionDigits: 2 })
+    : (product.price as any)?.toLocaleString('pt-BR', { minimumFractionDigits: 2 }) || '0,00';
+
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen" style={{ backgroundColor: 'var(--platinum)', fontFamily: 'var(--font-sans)' }}>
       <Navbar />
 
-      <div className="container py-8">
-        {/* Breadcrumb */}
-        <button
-          onClick={() => navigate("/catalogo")}
-          className="flex items-center gap-2 text-primary hover:text-primary/80 mb-6"
-        >
-          <ChevronLeft className="w-4 h-4" />
-          Voltar ao Catálogo
-        </button>
+      {/* Layout split 50/50 em desktop */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[calc(100vh-80px)]">
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Images */}
-          <div>
-            <div className="bg-gray-100 rounded-lg overflow-hidden mb-4">
-              {currentImage ? (
-                <img
-                  src={String(currentImage)}
-                  alt={product.name}
-                  className="w-full h-96 object-cover"
-                />
-              ) : (
-                <div className="w-full h-96 bg-gray-200 flex items-center justify-center">
-                  <p className="text-gray-400">Sem imagem</p>
-                </div>
-              )}
+        {/* Painel esquerdo — imagem sticky */}
+        <div className="lg:sticky lg:top-20 lg:h-[calc(100vh-80px)] flex items-center justify-center p-8 md:p-16"
+          style={{ backgroundColor: '#F0F4F8' }}>
+          {currentImage ? (
+            <img src={String(currentImage)} alt={product.name}
+              className="max-h-[480px] w-auto object-contain drop-shadow-2xl" />
+          ) : (
+            <div className="w-full h-80 flex items-center justify-center rounded-xl"
+              style={{ backgroundColor: '#E2E8F0' }}>
+              <Stethoscope className="w-24 h-24 text-slate-300" />
             </div>
+          )}
 
-            {/* Thumbnail Gallery */}
-            {images.length > 1 && (
-              <div className="grid grid-cols-4 gap-2">
-                {images.map((img, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => setCurrentImageIndex(idx)}
-                    className={`rounded overflow-hidden border-2 transition ${
-                      idx === currentImageIndex
-                        ? "border-primary"
-                        : "border-gray-200 hover:border-gray-300"
-                    }`}
-                  >
-                    <img
-                      src={String(img)}
-                      alt={`${product.name} ${idx + 1}`}
-                      className="w-full h-20 object-cover"
-                    />
-                  </button>
+          {/* Thumbs */}
+          {images.length > 1 && (
+            <div className="absolute bottom-8 left-0 right-0 flex justify-center gap-2">
+              {images.map((img, idx) => (
+                <button key={idx} onClick={() => setCurrentImageIndex(idx)}
+                  className={`w-12 h-12 rounded-lg overflow-hidden border-2 transition ${
+                    idx === currentImageIndex ? 'border-[#00C2D4]' : 'border-transparent opacity-60 hover:opacity-100'
+                  }`}>
+                  <img src={String(img)} className="w-full h-full object-cover" />
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Painel direito — info */}
+        <div className="p-8 md:p-16 flex flex-col justify-center bg-white">
+          <button onClick={() => navigate("/catalogo")}
+            className="flex items-center gap-1 text-sm mb-8 transition-colors hover:opacity-70 w-fit"
+            style={{ color: 'var(--cyan-clinical)', fontFamily: 'var(--font-mono)' }}>
+            ← Voltar ao Catálogo
+          </button>
+
+          <span className="text-xs tracking-[0.3em] uppercase font-medium mb-2 block"
+            style={{ color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
+            {product.category?.name || "Equipamento"}
+          </span>
+
+          <h1 className="text-3xl md:text-4xl mb-4 leading-tight"
+            style={{ fontFamily: 'var(--font-serif)', color: 'var(--navy-deep)' }}>
+            {product.name}
+          </h1>
+
+          <p className="text-4xl font-semibold mb-8"
+            style={{ fontFamily: 'var(--font-mono)', color: 'var(--amber-price)' }}>
+            R$ {price}
+          </p>
+
+          {/* Descrição */}
+          {product.description && (
+            <div className="mb-8 pb-8 border-b border-slate-100">
+              <p className="text-sm leading-relaxed" style={{ color: 'var(--text-muted)' }}>
+                {String(product.description)}
+              </p>
+            </div>
+          )}
+
+          {/* Specs */}
+          {product.specifications && (
+            <div className="mb-8">
+              <p className="text-xs tracking-widest uppercase font-medium mb-4"
+                style={{ color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
+                Especificações Técnicas
+              </p>
+              <div className="space-y-0 border border-slate-100 rounded-xl overflow-hidden">
+                {Object.entries(product.specifications as Record<string, any>).map(([key, value], i) => (
+                  <div key={key} className={`flex justify-between px-5 py-3 text-sm ${i % 2 === 0 ? 'bg-slate-50' : 'bg-white'}`}>
+                    <span style={{ color: 'var(--text-muted)' }}>{String(key)}</span>
+                    <span className="font-medium" style={{ color: 'var(--navy-deep)', fontFamily: 'var(--font-mono)' }}>
+                      {String(value)}
+                    </span>
+                  </div>
                 ))}
               </div>
-            )}
-          </div>
-
-          {/* Product Info */}
-          <div>
-            <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
-
-            {/* Price */}
-            <div className="mb-6">
-              <p className="text-gray-600 text-sm mb-2">Preço</p>
-              <p className="text-4xl font-bold text-primary">
-                R$ {typeof product.price === 'string' ? parseFloat(product.price).toFixed(2) : (product.price as any)?.toFixed(2) || '0.00'}
-              </p>
             </div>
+          )}
 
-            {/* Description */}
-            {(product.description as any) && (
-              <>
-                <div className="mb-6">
-                  <h2 className="text-lg font-semibold mb-2">Descrição</h2>
-                  <p className="text-gray-700 leading-relaxed">{String(product.description)}</p>
-                </div>
-              </>
-            )}
-
-            {/* Specifications */}
-            {product.specifications && typeof product.specifications === 'object' && (
-              <div className="mb-6">
-                <h2 className="text-lg font-semibold mb-3">Especificações Técnicas</h2>
-                <div className="space-y-2">
-                  {Object.entries(product.specifications as Record<string, any>).map(([key, value]) => (
-                    <div key={key} className="flex justify-between py-2 border-b border-gray-200">
-                      <span className="text-gray-600">{String(key)}</span>
-                      <span className="font-semibold">{String(value)}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Action Buttons */}
-            <div className="space-y-3">
-              <Button
-                size="lg"
-                onClick={handleWhatsApp}
-                className="w-full bg-green-600 hover:bg-green-700 flex items-center justify-center gap-2"
-              >
-                <Phone className="w-5 h-5" />
-                Falar via WhatsApp
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                onClick={handleContact}
-                className="w-full flex items-center justify-center gap-2"
-              >
-                <MessageCircle className="w-5 h-5" />
-                Enviar Mensagem
-              </Button>
-            </div>
-
-            {/* Additional Info */}
-            <div className="mt-8 p-4 bg-blue-50 rounded-lg">
-              <p className="text-sm text-gray-700">
-                <strong>Informação:</strong> Este produto é certificado e atende às normas técnicas de qualidade. Para mais detalhes, entre em contato conosco.
-              </p>
-            </div>
+          {/* CTAs */}
+          <div className="space-y-3">
+            <button onClick={handleWhatsApp}
+              className="w-full flex items-center justify-center gap-2 py-3.5 rounded-full text-white text-sm font-medium transition-all hover:opacity-90"
+              style={{ backgroundColor: '#25D366' }}>
+              Falar via WhatsApp
+            </button>
+            <button onClick={handleContact}
+              className="w-full flex items-center justify-center gap-2 py-3.5 rounded-full text-sm font-medium transition-all hover:bg-slate-50"
+              style={{ border: '1.5px solid var(--navy-deep)', color: 'var(--navy-deep)' }}>
+              Enviar Mensagem
+            </button>
           </div>
         </div>
       </div>

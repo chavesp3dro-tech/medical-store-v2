@@ -1,121 +1,110 @@
-import { useAuth } from "@/_core/hooks/useAuth";
-import { Button } from "@/components/ui/button";
-import { Menu, X, ShoppingCart, LogOut } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
-import { getLoginUrl } from "@/const";
+import { useAuth } from "@/_core/hooks/useAuth";
+import { trpc } from "@/lib/trpc";
+import { Menu, X } from "lucide-react";
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [, navigate] = useLocation();
-  const { user, logout, isAuthenticated } = useAuth();
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [location, navigate] = useLocation();
+  const { user, isAuthenticated } = useAuth();
+  const { data: storeConfig } = trpc.storeConfig.get.useQuery();
 
-  const handleLogout = async () => {
-    await logout();
-    navigate("/");
-  };
+  useEffect(() => {
+    const handler = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", handler);
+    return () => window.removeEventListener("scroll", handler);
+  }, []);
 
-  const isAdmin = user?.role === "admin";
+  const links = [
+    { href: "/", label: "Início" },
+    { href: "/catalogo", label: "Catálogo" },
+    { href: "/faq", label: "FAQ" },
+    { href: "/contato", label: "Contato" },
+  ];
 
   return (
-    <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
-      <div className="container flex justify-between items-center h-16">
+    <nav className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+      scrolled
+        ? "bg-white/85 backdrop-blur-md border-b border-slate-200/80 shadow-sm py-3"
+        : "bg-transparent py-5"
+    }`}>
+      <div className="container mx-auto px-6 flex items-center justify-between">
+
         {/* Logo */}
-        <div className="flex items-center gap-2 cursor-pointer" onClick={() => navigate("/")}>
-          <ShoppingCart className="w-6 h-6 text-primary" />
-          <span className="font-bold text-lg text-foreground">MedicalStore</span>
-        </div>
-
-        {/* Desktop Menu */}
-        <div className="hidden md:flex items-center gap-6">
-          <a href="/" className="text-foreground hover:text-primary transition">Início</a>
-          <a href="/catalogo" className="text-foreground hover:text-primary transition">Catálogo</a>
-          <a href="/faq" className="text-foreground hover:text-primary transition">FAQ</a>
-          <a href="/contato" className="text-foreground hover:text-primary transition">Contato</a>
-          
-          {isAdmin && (
-            <a href="/admin" className="text-foreground hover:text-primary transition font-semibold">Admin</a>
-          )}
-        </div>
-
-        {/* Auth Buttons */}
-        <div className="hidden md:flex items-center gap-2">
-          {isAuthenticated ? (
-            <>
-              <span className="text-sm text-gray-600">{user?.name}</span>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={handleLogout}
-                className="flex items-center gap-2"
-              >
-                <LogOut className="w-4 h-4" />
-                Sair
-              </Button>
-            </>
-          ) : (
-            <Button
-              size="sm"
-              onClick={() => (window.location.href = getLoginUrl())}
-            >
-              Entrar
-            </Button>
-          )}
-        </div>
-
-        {/* Mobile Menu Button */}
         <button
-          className="md:hidden"
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={() => navigate("/")}
+          className="flex items-center gap-2 group"
         >
-          {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          {storeConfig?.logoUrl ? (
+            <img src={storeConfig.logoUrl} alt="Logo" className="h-8 w-auto" />
+          ) : (
+            <span style={{ fontFamily: 'var(--font-serif)' }}
+              className={`text-xl font-bold transition-colors ${
+                scrolled ? "text-[#0B1829]" : "text-white"
+              }`}>
+              {storeConfig?.storeName || "MedicalStore"}
+            </span>
+          )}
+        </button>
+
+        {/* Links Desktop */}
+        <div className="hidden md:flex items-center gap-8">
+          {links.map(link => (
+            <a
+              key={link.href}
+              href={link.href}
+              className={`text-sm font-medium transition-colors relative group ${
+                scrolled ? "text-slate-600 hover:text-[#0B1829]" : "text-white/80 hover:text-white"
+              } ${location === link.href ? (scrolled ? "text-[#00C2D4]" : "text-[#00C2D4]") : ""}`}
+            >
+              {link.label}
+              <span className={`absolute -bottom-1 left-0 h-0.5 bg-[#00C2D4] transition-all duration-200 ${
+                location === link.href ? "w-full" : "w-0 group-hover:w-full"
+              }`} />
+            </a>
+          ))}
+
+          {isAuthenticated && user?.role === "admin" && (
+            <a href="/admin"
+              className="text-sm font-medium text-amber-500 hover:text-amber-400 transition-colors">
+              Admin
+            </a>
+          )}
+
+          <button
+            onClick={() => navigate("/contato")}
+            className="bg-[#00C2D4] text-white text-sm font-medium px-5 py-2 rounded-full
+                       hover:bg-[#00A8B8] transition-colors duration-200 shadow-lg shadow-cyan-500/20"
+          >
+            Solicitar Orçamento
+          </button>
+        </div>
+
+        {/* Mobile Toggle */}
+        <button
+          className={`md:hidden transition-colors ${scrolled ? "text-[#0B1829]" : "text-white"}`}
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          {menuOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
       </div>
 
       {/* Mobile Menu */}
-      {isOpen && (
-        <div className="md:hidden bg-white border-t border-gray-200 py-4">
-          <div className="container flex flex-col gap-4">
-            <a href="/" className="text-foreground hover:text-primary transition" onClick={() => setIsOpen(false)}>Início</a>
-            <a href="/catalogo" className="text-foreground hover:text-primary transition" onClick={() => setIsOpen(false)}>Catálogo</a>
-            <a href="/faq" className="text-foreground hover:text-primary transition" onClick={() => setIsOpen(false)}>FAQ</a>
-            <a href="/contato" className="text-foreground hover:text-primary transition" onClick={() => setIsOpen(false)}>Contato</a>
-            
-            {isAdmin && (
-              <a href="/admin" className="text-foreground hover:text-primary transition font-semibold" onClick={() => setIsOpen(false)}>Admin</a>
-            )}
-
-            <div className="border-t border-gray-200 pt-4">
-              {isAuthenticated ? (
-                <>
-                  <p className="text-sm text-gray-600 mb-2">{user?.name}</p>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => {
-                      handleLogout();
-                      setIsOpen(false);
-                    }}
-                    className="w-full justify-start"
-                  >
-                    <LogOut className="w-4 h-4 mr-2" />
-                    Sair
-                  </Button>
-                </>
-              ) : (
-                <Button
-                  size="sm"
-                  onClick={() => {
-                    window.location.href = getLoginUrl();
-                    setIsOpen(false);
-                  }}
-                  className="w-full"
-                >
-                  Entrar
-                </Button>
-              )}
-            </div>
-          </div>
+      {menuOpen && (
+        <div className="md:hidden bg-white border-t border-slate-100 px-6 py-4 space-y-3">
+          {links.map(link => (
+            <a key={link.href} href={link.href}
+              className="block text-sm font-medium text-slate-600 hover:text-[#00C2D4] transition-colors py-2">
+              {link.label}
+            </a>
+          ))}
+          <button
+            onClick={() => { navigate("/contato"); setMenuOpen(false); }}
+            className="w-full bg-[#00C2D4] text-white text-sm font-medium py-2.5 rounded-full mt-2">
+            Solicitar Orçamento
+          </button>
         </div>
       )}
     </nav>

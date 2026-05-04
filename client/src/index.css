@@ -1,7 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;600&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
+
+@layer base {
+  :root {
+    --navy-deep: #0B1829;
+    --navy-mid: #162236;
+    --navy-light: #1E3251;
+    --cyan-clinical: #00C2D4;
+    --cyan-glow: rgba(0, 194, 212, 0.15);
+    --cyan-soft: #E0F7FA;
+    --platinum: #F5F7FA;
+    --slate-border: #E2E8F0;
+    --amber-price: #F59E0B;
+    --white: #FFFFFF;
+    --text-primary: #0B1829;
+    --text-muted: #64748B;
+    --green-whatsapp: #25D366;
+
+    --font-serif: 'DM Serif Display', Georgia, serif;
+    --font-sans: 'DM Sans', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+
+    /* Mapeamento para variáveis do shadcn/ui */
+    --primary: 188 100% 26%;
+    --primary-foreground: 0 0% 100%;
+    --background: 210 25% 97%;
+    --foreground: 213 56% 11%;
+    --muted: 210 20% 96%;
+    --muted-foreground: 215 16% 47%;
+    --border: 214 32% 91%;
+    --ring: 188 100% 26%;
+  }
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--platinum);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-serif);
+}
+
+/* Floating WhatsApp pulse */
+@keyframes pulse-whatsapp {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4); }
+  50% { box-shadow: 0 0 0 12px rgba(37, 211, 102, 0); }
+}
+
+.whatsapp-float {
+  animation: pulse-whatsapp 2.5s ease-in-out infinite;
+}
+
+/* ECG line animation for hero */
+@keyframes ecg-move {
+  0% { stroke-dashoffset: 1000; }
+  100% { stroke-dashoffset: 0; }
+}
+
+.ecg-line {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: ecg-move 3s ease forwards;
+}
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
