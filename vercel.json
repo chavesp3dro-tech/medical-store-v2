@@ -8,8 +8,18 @@
     "NODE_ENV": "production"
   },
   "functions": {
-    "server/_core/index.ts": {
+    "api/index.ts": {
       "runtime": "nodejs20.x"
     }
-  }
+  },
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "/api"
+    },
+    {
+      "source": "/:path*",
+      "destination": "/index.html"
+    }
+  ]
 }
