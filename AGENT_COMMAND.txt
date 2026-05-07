@@ -1,0 +1,175 @@
+================================================================================
+COMANDO PARA AGENTE - DEPLOY VERCEL MEDICAL STORE
+================================================================================
+
+OBJETIVO:
+Fazer o deployment completo do projeto medical-store-v2 no Vercel, incluindo:
+1. Importar repositório
+2. Configurar variáveis de ambiente
+3. Executar deploy
+
+================================================================================
+INSTRUÇÕES PARA O AGENTE:
+================================================================================
+
+FASE 1: PREPARAÇÃO
+─────────────────────────────────────────────────────────────────────────────
+
+1. Verifique que o Vercel Dashboard está aberto em https://vercel.com/dashboard
+2. Confirme que você está logado no Vercel
+3. Confirme que o repositório chavesp3dro-tech/medical-store-v2 existe no GitHub
+
+
+FASE 2: IMPORTAR REPOSITÓRIO
+─────────────────────────────────────────────────────────────────────────────
+
+4. No Vercel Dashboard, clique em "Add New" → "Project"
+5. Procure por "medical-store-v2" ou selecione manualmente
+6. Clique em "Import" para importar o repositório
+7. Aguarde a página de configuração carregar
+
+
+FASE 3: CONFIGURAR PROJETO
+─────────────────────────────────────────────────────────────────────────────
+
+8. Verifique as configurações do projeto:
+   - Nome: medical-store-v2
+   - Framework: Vite (deve detectar automaticamente)
+   - Root Directory: . (ponto)
+   - Build Command: pnpm build
+   - Output Directory: dist
+
+
+FASE 4: ADICIONAR VARIÁVEIS DE AMBIENTE
+─────────────────────────────────────────────────────────────────────────────
+
+9. Localize a seção "Environment Variables"
+
+10. Adicione as 8 variáveis obrigatórias (na ordem):
+
+    1. DATABASE_URL
+       Valor: mysql://user:password@host:3306/medical_store
+       (Substitua com sua URL MySQL real)
+
+    2. VITE_APP_ID
+       Valor: your_manus_app_id
+       (Substitua com seu ID Manus)
+
+    3. OAUTH_SERVER_URL
+       Valor: https://api.manus.im
+
+    4. JWT_SECRET
+       Valor: your_jwt_secret_key_here
+       (Substitua com uma chave secreta segura)
+
+    5. OWNER_OPEN_ID
+       Valor: owner_open_id
+       (Substitua com o ID do proprietário)
+
+    6. OWNER_NAME
+       Valor: Owner Name
+       (Substitua com o nome do proprietário)
+
+    7. VITE_FRONTEND_FORGE_API_KEY
+       Valor: your_frontend_forge_api_key
+       (Substitua com a chave API frontend)
+
+    8. BUILT_IN_FORGE_API_KEY
+       Valor: your_forge_api_key
+       (Substitua com a chave API backend)
+
+11. Verifique que todas as 8 variáveis foram adicionadas corretamente
+
+
+FASE 5: EXECUTAR DEPLOY
+─────────────────────────────────────────────────────────────────────────────
+
+12. Clique no botão "Deploy" (geralmente no final da página)
+13. Aguarde o início do processo de build
+14. Monitore o progresso na página de logs
+15. Aguarde até que o status mude para "Ready" ou "Deployed"
+
+
+FASE 6: VALIDAÇÃO
+─────────────────────────────────────────────────────────────────────────────
+
+16. Quando o deploy terminar, você verá uma URL como:
+    https://medical-store-v2.vercel.app
+
+17. Clique na URL para abrir o site
+18. Verifique se a página carrega corretamente (não deve ser 404)
+19. Abra o console do navegador (F12) e verifique se há erros críticos
+
+
+FASE 7: DOCUMENTAR RESULTADO
+─────────────────────────────────────────────────────────────────────────────
+
+20. Capture screenshots de:
+    - URL do site deployado
+    - Página inicial funcionando
+    - Vercel Dashboard mostrando "Deployed"
+
+21. Documente:
+    - URL do site
+    - Data/hora do deployment
+    - Status: "Deployed Successfully"
+    - Qualquer erro ou aviso encontrado
+
+
+================================================================================
+CHECKLIST DE CONCLUSÃO
+================================================================================
+
+✓ Repositório importado no Vercel
+✓ 8 variáveis de ambiente configuradas
+✓ Build iniciado com sucesso
+✓ Deploy concluído (status "Ready")
+✓ Site acessível via URL
+✓ Página inicial carrega sem erros 404
+✓ Console do navegador sem erros críticos
+✓ Screenshots capturadas
+✓ Resultado documentado
+
+
+================================================================================
+POSSÍVEIS ERROS E SOLUÇÕES
+================================================================================
+
+Erro: "Repository not found"
+→ Solução: Verifique se o repositório é público e o nome está correto
+
+Erro: "Build failed"
+→ Solução: Verifique os logs de build no Vercel
+
+Erro: "404 Not Found"
+→ Solução: Verifique se vercel.json está configurado corretamente
+
+Erro: "Missing environment variable"
+→ Solução: Adicione todas as 8 variáveis obrigatórias
+
+
+================================================================================
+RESULTADO ESPERADO
+================================================================================
+
+Após completar todos os passos:
+
+✅ Site deployado e acessível
+✅ URL: https://medical-store-v2.vercel.app (ou domínio customizado)
+✅ Página inicial carregando corretamente
+✅ Sem erros 404 ou 500
+✅ Todas as variáveis de ambiente configuradas
+
+STATUS FINAL: DEPLOYMENT CONCLUÍDO COM SUCESSO ✅
+
+
+================================================================================
+REFERÊNCIAS
+================================================================================
+
+- Arquivo de configuração: vercel.json
+- Variáveis de ambiente: .env.example
+- Guia de deployment: DEPLOYMENT.md
+- Detalhes completos: AGENT_DEPLOYMENT_PROMPT.md
+
+================================================================================
