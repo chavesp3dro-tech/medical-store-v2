@@ -1,0 +1,35 @@
+{
+  "buildCommand": "pnpm build",
+  "devCommand": "pnpm dev",
+  "installCommand": "pnpm install",
+  "framework": "vite",
+  "outputDirectory": "dist",
+  "env": {
+    "NODE_ENV": "production"
+  },
+  "functions": {
+    "server/_core/index.ts": {
+      "runtime": "nodejs20.x",
+      "memory": 1024,
+      "maxDuration": 60
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/trpc/:path*",
+      "destination": "/dist/index.js"
+    },
+    {
+      "source": "/api/oauth/:path*",
+      "destination": "/dist/index.js"
+    },
+    {
+      "source": "/manus-storage/:path*",
+      "destination": "/dist/index.js"
+    },
+    {
+      "source": "/:path*",
+      "destination": "/dist/public/index.html"
+    }
+  ]
+}
