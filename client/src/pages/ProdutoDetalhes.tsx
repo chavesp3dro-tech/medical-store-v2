@@ -1,9 +1,12 @@
+import { useCart } from "@/contexts/CartContext";
+import Footer from "@/components/Footer";
 import { useRoute } from "wouter";
 import { trpc } from "@/lib/trpc";
 import Navbar from "@/components/Navbar";
 import { useLocation } from "wouter";
 import { Stethoscope } from "lucide-react";
 import { useState } from "react";
+import { toast } from "sonner";
 
 export default function ProdutoDetalhes() {
   const [, navigate] = useLocation();
@@ -22,7 +25,9 @@ export default function ProdutoDetalhes() {
         <Navbar />
         <div className="container py-12">
           <p style={{ color: 'var(--text-muted)' }}>Carregando...</p>
+      <Footer />
         </div>
+      <Footer />
       </div>
     );
   }
@@ -40,7 +45,9 @@ export default function ProdutoDetalhes() {
           >
             Voltar ao Catálogo
           </button>
+      <Footer />
         </div>
+      <Footer />
       </div>
     );
   }
@@ -81,6 +88,7 @@ export default function ProdutoDetalhes() {
             <div className="w-full h-80 flex items-center justify-center rounded-xl"
               style={{ backgroundColor: '#E2E8F0' }}>
               <Stethoscope className="w-24 h-24 text-slate-300" />
+      <Footer />
             </div>
           )}
 
@@ -90,13 +98,15 @@ export default function ProdutoDetalhes() {
               {images.map((img, idx) => (
                 <button key={idx} onClick={() => setCurrentImageIndex(idx)}
                   className={`w-12 h-12 rounded-lg overflow-hidden border-2 transition ${
-                    idx === currentImageIndex ? 'border-[#00C2D4]' : 'border-transparent opacity-60 hover:opacity-100'
+                    idx === currentImageIndex ? 'border-[#10B981]' : 'border-transparent opacity-60 hover:opacity-100'
                   }`}>
                   <img src={String(img)} className="w-full h-full object-cover" />
                 </button>
               ))}
+      <Footer />
             </div>
           )}
+      <Footer />
         </div>
 
         {/* Painel direito — info */}
@@ -128,6 +138,7 @@ export default function ProdutoDetalhes() {
               <p className="text-sm leading-relaxed" style={{ color: 'var(--text-muted)' }}>
                 {String(product.description)}
               </p>
+      <Footer />
             </div>
           )}
 
@@ -145,9 +156,12 @@ export default function ProdutoDetalhes() {
                     <span className="font-medium" style={{ color: 'var(--navy-deep)', fontFamily: 'var(--font-mono)' }}>
                       {String(value)}
                     </span>
+      <Footer />
                   </div>
                 ))}
+      <Footer />
               </div>
+      <Footer />
             </div>
           )}
 
@@ -163,9 +177,13 @@ export default function ProdutoDetalhes() {
               style={{ border: '1.5px solid var(--navy-deep)', color: 'var(--navy-deep)' }}>
               Enviar Mensagem
             </button>
+      <Footer />
           </div>
+      <Footer />
         </div>
+      <Footer />
       </div>
+      <Footer />
     </div>
   );
 }

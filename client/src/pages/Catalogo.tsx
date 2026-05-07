@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer";
 import { useState } from "react";
 import { trpc } from "@/lib/trpc";
 import Navbar from "@/components/Navbar";
@@ -28,9 +29,10 @@ export default function Catalogo() {
           <svg className="w-full h-full" preserveAspectRatio="none">
             <polyline
               points="0,50% 10%,50% 15%,20% 20%,80% 25%,10% 30%,90% 35%,50% 100%,50%"
-              fill="none" stroke="#00C2D4" strokeWidth="2"
+              fill="none" stroke="#10B981" strokeWidth="2"
             />
           </svg>
+      <Footer />
         </div>
 
         <div className="container mx-auto px-6 relative z-10">
@@ -45,6 +47,7 @@ export default function Catalogo() {
               Encontre os melhores equipamentos médicos e hospitalares certificados
             </p>
           </motion.div>
+      <Footer />
         </div>
       </section>
 
@@ -69,10 +72,12 @@ export default function Catalogo() {
                     placeholder="Nome do produto..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full border border-slate-200 rounded-full px-5 py-2.5 pl-10 focus:outline-none focus:ring-2 focus:ring-[#00C2D4]"
+                    className="w-full border border-slate-200 rounded-full px-5 py-2.5 pl-10 focus:outline-none focus:ring-2 focus:ring-[#10B981]"
                     style={{ fontSize: '0.875rem' }}
                   />
+      <Footer />
                 </div>
+      <Footer />
               </div>
 
               {/* Categories */}
@@ -112,9 +117,13 @@ export default function Catalogo() {
                       {cat.name}
                     </button>
                   ))}
+      <Footer />
                 </div>
+      <Footer />
               </div>
+      <Footer />
             </div>
+      <Footer />
           </div>
 
           {/* Products Grid */}
@@ -147,6 +156,7 @@ export default function Catalogo() {
                         ) : (
                           <div className="w-full h-full flex items-center justify-center">
                             <Stethoscope className="w-16 h-16 text-slate-200" />
+      <Footer />
                           </div>
                         )}
                         {/* Overlay CTA */}
@@ -156,7 +166,9 @@ export default function Catalogo() {
                             style={{ fontFamily: 'var(--font-sans)' }}>
                             Ver detalhes <ArrowRight size={14} />
                           </span>
+      <Footer />
                         </div>
+      <Footer />
                       </div>
 
                       {/* Info */}
@@ -171,10 +183,12 @@ export default function Catalogo() {
                         <p className="text-2xl font-semibold" style={{ color: 'var(--amber-price)', fontFamily: 'var(--font-mono)' }}>
                           R$ {price}
                         </p>
+      <Footer />
                       </div>
                     </motion.div>
                   );
                 })}
+      <Footer />
               </div>
             ) : (
               <div className="text-center py-16">
@@ -192,11 +206,16 @@ export default function Catalogo() {
                 >
                   Limpar Filtros
                 </button>
+      <Footer />
               </div>
             )}
+      <Footer />
           </div>
+      <Footer />
         </div>
+      <Footer />
       </div>
+      <Footer />
     </div>
   );
 }

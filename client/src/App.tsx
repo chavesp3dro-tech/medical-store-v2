@@ -10,7 +10,11 @@ import ProdutoDetalhes from "./pages/ProdutoDetalhes";
 import FAQ from "./pages/FAQ";
 import Contato from "./pages/Contato";
 import AdminDashboard from "./pages/AdminDashboard";
+import Sobre from "./pages/Sobre";
+import Footer from "./components/Footer";
 import { trpc } from "@/lib/trpc";
+import { CartProvider } from "./contexts/CartContext";
+import Carrinho from "./pages/Carrinho";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -21,6 +25,8 @@ function Router() {
       <Route path="/produto/:slug" component={ProdutoDetalhes} />
       <Route path="/faq" component={FAQ} />
       <Route path="/contato" component={Contato} />
+      <Route path="/sobre" component={Sobre} />
+      <Route path="/carrinho" component={Carrinho} />
       <Route path="/admin" component={AdminDashboard} />
       <Route path="/404" component={NotFound} />
       {/* Final fallback route */}
@@ -46,7 +52,7 @@ function App() {
       >
         <TooltipProvider>
           <Toaster />
-          <Router />
+          <CartProvider><Router /></CartProvider>
 
           {/* WhatsApp Flutuante Global */}
           {whatsapp && (

@@ -1,3 +1,5 @@
+import Testimonials from "@/components/Testimonials";
+import Footer from "@/components/Footer";
 import { useLocation } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { motion } from "framer-motion";
@@ -99,6 +101,8 @@ export default function Home() {
                   </a>
                 )}
               </motion.div>
+      <Footer />
+      <Testimonials />
             </div>
 
             {/* Stats */}
@@ -121,10 +125,16 @@ export default function Home() {
                     {stat.value}
                   </p>
                   <p className="text-sm" style={{ color: 'rgba(255,255,255,0.5)' }}>{stat.label}</p>
+      <Footer />
+      <Testimonials />
                 </div>
               ))}
             </motion.div>
+      <Footer />
+      <Testimonials />
           </div>
+      <Footer />
+      <Testimonials />
         </div>
 
         {/* Wave divider */}
@@ -132,6 +142,8 @@ export default function Home() {
           <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M0 60L1440 60L1440 20C1200 60 720 0 0 40L0 60Z" fill="var(--platinum)" />
           </svg>
+      <Footer />
+      <Testimonials />
         </div>
       </section>
 
@@ -178,7 +190,11 @@ export default function Home() {
                 </p>
               </motion.div>
             ))}
+      <Footer />
+      <Testimonials />
           </div>
+      <Footer />
+      <Testimonials />
         </div>
       </section>
 
@@ -195,6 +211,8 @@ export default function Home() {
                 <h2 className="text-4xl" style={{ fontFamily: 'var(--font-serif)', color: 'var(--navy-deep)' }}>
                   Produtos em Destaque
                 </h2>
+      <Footer />
+      <Testimonials />
               </div>
               <button
                 onClick={() => navigate("/catalogo")}
@@ -203,6 +221,8 @@ export default function Home() {
               >
                 Ver todos <ChevronRight size={16} />
               </button>
+      <Footer />
+      <Testimonials />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -232,6 +252,8 @@ export default function Home() {
                       ) : (
                         <div className="w-full h-full flex items-center justify-center">
                           <Stethoscope className="w-16 h-16 text-slate-200" />
+      <Footer />
+      <Testimonials />
                         </div>
                       )}
                       {/* Overlay CTA */}
@@ -241,7 +263,11 @@ export default function Home() {
                           style={{ fontFamily: 'var(--font-sans)' }}>
                           Ver detalhes <ArrowRight size={14} />
                         </span>
+      <Footer />
+      <Testimonials />
                       </div>
+      <Footer />
+      <Testimonials />
                     </div>
 
                     {/* Info */}
@@ -253,10 +279,14 @@ export default function Home() {
                       <p className="text-2xl font-semibold" style={{ color: 'var(--amber-price)', fontFamily: 'var(--font-mono)' }}>
                         R$ {price}
                       </p>
+      <Footer />
+      <Testimonials />
                     </div>
                   </motion.div>
                 );
               })}
+      <Footer />
+      <Testimonials />
             </div>
 
             <div className="text-center mt-12 md:hidden">
@@ -267,7 +297,11 @@ export default function Home() {
               >
                 Ver Todos os Produtos
               </button>
+      <Footer />
+      <Testimonials />
             </div>
+      <Footer />
+      <Testimonials />
           </div>
         </section>
       )}
@@ -303,8 +337,12 @@ export default function Home() {
                 style={{ border: '1px solid rgba(255,255,255,0.2)' }}>
                 Enviar Mensagem
               </button>
+      <Footer />
+      <Testimonials />
             </div>
           </motion.div>
+      <Footer />
+      <Testimonials />
         </div>
       </section>
 
@@ -319,6 +357,8 @@ export default function Home() {
               <p className="text-sm leading-relaxed max-w-xs" style={{ color: 'rgba(255,255,255,0.4)' }}>
                 {storeConfig?.description || "Sua fonte confiável de equipamentos médicos e hospitalares certificados."}
               </p>
+      <Footer />
+      <Testimonials />
             </div>
             <div>
               <p className="text-xs tracking-widest uppercase mb-4 font-medium" style={{ color: 'var(--cyan-clinical)', fontFamily: 'var(--font-mono)' }}>
@@ -332,6 +372,8 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
+      <Footer />
+      <Testimonials />
             </div>
             <div>
               <p className="text-xs tracking-widest uppercase mb-4 font-medium" style={{ color: 'var(--cyan-clinical)', fontFamily: 'var(--font-mono)' }}>
@@ -341,7 +383,11 @@ export default function Home() {
                 {storeConfig?.contactEmail && <li>{storeConfig.contactEmail}</li>}
                 {storeConfig?.whatsappNumber && <li>{storeConfig.whatsappNumber}</li>}
               </ul>
+      <Footer />
+      <Testimonials />
             </div>
+      <Footer />
+      <Testimonials />
           </div>
           <div className="pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-xs" style={{ color: 'rgba(255,255,255,0.25)' }}>
@@ -352,10 +398,18 @@ export default function Home() {
                 <a key={label} href={href} className="text-xs transition-colors hover:text-white"
                   style={{ color: 'rgba(255,255,255,0.25)' }}>{label}</a>
               ))}
+      <Footer />
+      <Testimonials />
             </div>
+      <Footer />
+      <Testimonials />
           </div>
+      <Footer />
+      <Testimonials />
         </div>
       </footer>
+      <Footer />
+      <Testimonials />
     </div>
   );
 }

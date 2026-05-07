@@ -1,200 +1,180 @@
 import { useState } from "react";
-import { trpc } from "@/lib/trpc";
+import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { MessageCircle, Phone, Mail } from "lucide-react";
+import Footer from "@/components/Footer";
+import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
 
 export default function Contato() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    message: "",
-    type: "contact" as const,
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const { data: storeConfig } = trpc.storeConfig.get.useQuery();
   const createContact = trpc.contacts.create.useMutation();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
-
     try {
-      await createContact.mutateAsync(formData);
+      await createContact.mutateAsync({
+        name: formData.name,
+        email: formData.email,
+        message: formData.message,
+      });
+      setFormData({ name: "", email: "", message: "" });
       toast.success("Mensagem enviada com sucesso! Entraremos em contato em breve.");
-      setFormData({ name: "", email: "", phone: "", message: "", type: "contact" });
     } catch (error) {
       toast.error("Erro ao enviar mensagem. Tente novamente.");
-      console.error(error);
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
-  const handleWhatsApp = () => {
-    if (storeConfig?.whatsappNumber) {
-      const message = "Olá! Gostaria de falar com um vendedor.";
-      const whatsappUrl = `https://wa.me/${storeConfig.whatsappNumber.replace(/\D/g, '')}?text=${encodeURIComponent(message)}`;
-      window.open(whatsappUrl, "_blank");
-    }
-  };
+  const contactInfo = [
+    { icon: Mail, label: "Email", value: storeConfig?.contactEmail || "contato@medicalstore.com" },
+    { icon: Phone, label: "WhatsApp", value: storeConfig?.whatsappNumber || "(11) 99999-9999" },
+    { icon: MapPin, label: "Localização", value: "São Paulo, SP - Brasil" },
+  ];
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen" style={{ backgroundColor: 'var(--platinum)', fontFamily: 'var(--font-sans)' }}>
       <Navbar />
 
-      {/* Header */}
-      <section className="bg-gradient-to-r from-primary to-yellow-500 text-white py-12">
-        <div className="container">
-          <h1 className="text-4xl font-bold mb-4">Entre em Contato</h1>
-          <p className="text-lg opacity-90">Estamos aqui para ajudar você</p>
+      {/* Hero */}
+      <section className="relative py-24 md:py-32 overflow-hidden" style={{ backgroundColor: 'var(--navy-deep)' }}>
+        <div className="container mx-auto px-6 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="max-w-2xl"
+          >
+            <h1 className="text-5xl md:text-6xl text-white mb-6 leading-tight" style={{ fontFamily: 'var(--font-serif)' }}>
+              Entre em <em style={{ color: 'var(--green-medical)' }}>Contato</em>
+            </h1>
+            <p className="text-lg" style={{ color: 'rgba(255,255,255,0.7)' }}>
+              Estamos aqui para ajudar. Entre em contato conosco por qualquer dúvida ou sugestão.
+            </p>
+          </motion.div>
         </div>
       </section>
 
-      <div className="container py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="container mx-auto px-6 py-24">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           {/* Contact Info */}
-          <div className="lg:col-span-1">
+          <div>
+            <h2 className="text-2xl font-semibold mb-8" style={{ fontFamily: 'var(--font-serif)', color: 'var(--navy-deep)' }}>
+              Informações de Contato
+            </h2>
+
             <div className="space-y-6">
-              {/* WhatsApp */}
-              {storeConfig?.whatsappNumber && (
-                <Card className="p-6">
-                  <div className="flex items-center gap-4 mb-4">
-                    <MessageCircle className="w-8 h-8 text-green-600" />
-                    <h3 className="font-semibold text-lg">WhatsApp</h3>
-                  </div>
-                  <p className="text-gray-600 mb-4">{storeConfig.whatsappNumber}</p>
-                  <Button
-                    onClick={handleWhatsApp}
-                    className="w-full bg-green-600 hover:bg-green-700"
-                  >
-                    Abrir WhatsApp
-                  </Button>
-                </Card>
-              )}
-
-              {/* Email */}
-              {storeConfig?.contactEmail && (
-                <Card className="p-6">
-                  <div className="flex items-center gap-4 mb-4">
-                    <Mail className="w-8 h-8 text-blue-600" />
-                    <h3 className="font-semibold text-lg">Email</h3>
-                  </div>
-                  <p className="text-gray-600">{storeConfig.contactEmail}</p>
-                </Card>
-              )}
-
-              {/* Info */}
-              <Card className="p-6 bg-blue-50">
-                <div className="flex items-center gap-4 mb-4">
-                  <Phone className="w-8 h-8 text-primary" />
-                  <h3 className="font-semibold text-lg">Horário de Atendimento</h3>
-                </div>
-                <p className="text-gray-700">
-                  Segunda a Sexta: 9h às 18h<br />
-                  Sábado: 9h às 13h<br />
-                  Domingo: Fechado
-                </p>
-              </Card>
-            </div>
-          </div>
-
-          {/* Contact Form */}
-          <div className="lg:col-span-2">
-            <Card className="p-8">
-              <h2 className="text-2xl font-bold mb-6">Envie uma Mensagem</h2>
-
-              <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Name */}
-                <div>
-                  <label className="block text-sm font-semibold mb-2">Nome Completo *</label>
-                  <Input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    placeholder="Seu nome"
-                    required
-                  />
-                </div>
-
-                {/* Email */}
-                <div>
-                  <label className="block text-sm font-semibold mb-2">Email *</label>
-                  <Input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    placeholder="seu@email.com"
-                    required
-                  />
-                </div>
-
-                {/* Phone */}
-                <div>
-                  <label className="block text-sm font-semibold mb-2">Telefone</label>
-                  <Input
-                    type="tel"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    placeholder="(11) 99999-9999"
-                  />
-                </div>
-
-                {/* Type */}
-                <div>
-                  <label className="block text-sm font-semibold mb-2">Tipo de Contato *</label>
-                  <select
-                    name="type"
-                    value={formData.type}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-                  >
-                    <option value="contact">Dúvida Geral</option>
-                    <option value="vendor_request">Falar com Vendedor</option>
-                  </select>
-                </div>
-
-                {/* Message */}
-                <div>
-                  <label className="block text-sm font-semibold mb-2">Mensagem *</label>
-                  <textarea
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    placeholder="Sua mensagem aqui..."
-                    rows={6}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-                    required
-                  />
-                </div>
-
-                {/* Submit Button */}
-                <Button
-                  type="submit"
-                  size="lg"
-                  disabled={isSubmitting}
-                  className="w-full"
+              {contactInfo.map((info, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.1 }}
+                  className="flex gap-4"
                 >
-                  {isSubmitting ? "Enviando..." : "Enviar Mensagem"}
-                </Button>
-              </form>
-            </Card>
+                  <div className="p-3 rounded-lg" style={{ backgroundColor: 'var(--green-light)' }}>
+                    <info.icon size={24} style={{ color: 'var(--green-medical)' }} />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold" style={{ color: 'var(--text-muted)' }}>
+                      {info.label}
+                    </p>
+                    <p className="font-semibold" style={{ color: 'var(--navy-deep)' }}>
+                      {info.value}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Horário */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.3 }}
+              className="mt-12 p-6 bg-white rounded-xl border border-slate-100"
+            >
+              <h3 className="font-semibold mb-4" style={{ color: 'var(--navy-deep)' }}>
+                Horário de Atendimento
+              </h3>
+              <p className="text-sm" style={{ color: 'var(--text-muted)' }}>
+                Segunda a Sexta: 08:00 - 18:00
+              </p>
+              <p className="text-sm" style={{ color: 'var(--text-muted)' }}>
+                Sábado: 09:00 - 13:00
+              </p>
+              <p className="text-sm" style={{ color: 'var(--text-muted)' }}>
+                Domingo: Fechado
+              </p>
+            </motion.div>
           </div>
+
+          {/* Form */}
+          <motion.form
+            initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }} transition={{ duration: 0.6 }}
+            onSubmit={handleSubmit}
+            className="lg:col-span-2 bg-white p-8 rounded-xl border border-slate-100"
+          >
+            <h2 className="text-2xl font-semibold mb-8" style={{ fontFamily: 'var(--font-serif)', color: 'var(--navy-deep)' }}>
+              Envie uma Mensagem
+            </h2>
+
+            <div className="space-y-6">
+              <div>
+                <label className="block text-sm font-semibold mb-2" style={{ color: 'var(--navy-deep)' }}>
+                  Nome
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  className="w-full px-4 py-3 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                  placeholder="Seu nome"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold mb-2" style={{ color: 'var(--navy-deep)' }}>
+                  Email
+                </label>
+                <input
+                  type="email"
+                  required
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  className="w-full px-4 py-3 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                  placeholder="seu@email.com"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold mb-2" style={{ color: 'var(--navy-deep)' }}>
+                  Mensagem
+                </label>
+                <textarea
+                  required
+                  value={formData.message}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  rows={6}
+                  className="w-full px-4 py-3 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 resize-none"
+                  placeholder="Sua mensagem aqui..."
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={createContact.isPending}
+                className="w-full py-3 rounded-lg text-white font-semibold transition-all hover:opacity-90 disabled:opacity-50 flex items-center justify-center gap-2"
+                style={{ backgroundColor: 'var(--green-medical)' }}
+              >
+                <Send size={18} />
+                {createContact.isPending ? "Enviando..." : "Enviar Mensagem"}
+              </button>
+            </div>
+          </motion.form>
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 }
