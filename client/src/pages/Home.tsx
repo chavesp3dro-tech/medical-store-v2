@@ -20,10 +20,10 @@ export default function Home() {
   const whatsapp = storeConfig?.whatsappNumber?.replace(/\D/g, '');
 
   const features = [
-    { icon: Stethoscope, title: "Produtos Certificados", text: "Equipamentos com certificações ANVISA e normas técnicas de qualidade" },
-    { icon: Truck, title: "Entrega Nacional", text: "Envios seguros para todo o Brasil com rastreamento em tempo real" },
-    { icon: Shield, title: "Garantia Completa", text: "12 meses de garantia em todos os produtos da nossa linha" },
-    { icon: HeartPulse, title: "Suporte Especializado", text: "Equipe técnica disponível para auxiliar na escolha e uso dos equipamentos" },
+    { icon: Stethoscope, title: "Qualidade Certificada", text: "Todos os equipamentos possuem certificação ANVISA e atendem rigorosamente as normas técnicas internacionais de saúde" },
+    { icon: Truck, title: "Entrega Rápida e Segura", text: "Distribuição para todo o Brasil com rastreamento em tempo real e embalagem especializada" },
+    { icon: Shield, title: "Garantia e Confiança", text: "12 meses de garantia completa com suporte técnico e reposição garantida" },
+    { icon: HeartPulse, title: "Expertise Médica", text: "Consultores especializados disponíveis 24/7 para orientar sua escolha e implementação" },
   ];
 
   return (
@@ -38,13 +38,13 @@ export default function Home() {
           <polyline
             className="ecg-line"
             points="0,50% 10%,50% 15%,20% 20%,80% 25%,10% 30%,90% 35%,50% 100%,50%"
-            fill="none" stroke="#00C2D4" strokeWidth="2"
+            fill="none" stroke="#10B981" strokeWidth="2"
           />
         </svg>
 
         {/* Glow */}
         <div className="absolute top-1/3 right-1/4 w-96 h-96 rounded-full pointer-events-none"
-          style={{ background: 'radial-gradient(circle, rgba(0,194,212,0.12) 0%, transparent 70%)' }} />
+          style={{ background: 'radial-gradient(circle, rgba(16,185,129,0.12) 0%, transparent 70%)' }} />
 
         <div className="container mx-auto px-6 pt-28 pb-20 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -54,9 +54,9 @@ export default function Home() {
               <motion.span
                 variants={fadeUp} initial="hidden" animate="show" custom={0}
                 className="inline-block text-xs tracking-[0.35em] uppercase font-medium mb-6 px-3 py-1.5 rounded-full border"
-                style={{ color: 'var(--cyan-clinical)', borderColor: 'rgba(0,194,212,0.3)', fontFamily: 'var(--font-mono)' }}
+                style={{ color: 'var(--green-medical)', borderColor: 'rgba(16,185,129,0.3)', fontFamily: 'var(--font-mono)' }}
               >
-                Equipamentos Hospitalares Certificados
+                Soluções em Saúde Premium
               </motion.span>
 
               <motion.h1
@@ -64,8 +64,8 @@ export default function Home() {
                 className="text-5xl md:text-6xl xl:text-7xl text-white leading-[1.05] mb-6"
                 style={{ fontFamily: 'var(--font-serif)' }}
               >
-                Precisão que<br />
-                <em style={{ color: 'var(--cyan-clinical)' }}>salva vidas.</em>
+                Equipamentos Médicos<br />
+                <em style={{ color: 'var(--green-medical)' }}>que fazem a diferença.</em>
               </motion.h1>
 
               <motion.p
@@ -83,7 +83,7 @@ export default function Home() {
                 <button
                   onClick={() => navigate("/catalogo")}
                   className="flex items-center gap-2 px-7 py-3.5 rounded-full font-medium text-white transition-all duration-200 hover:opacity-90 hover:-translate-y-0.5"
-                  style={{ backgroundColor: 'var(--cyan-clinical)', fontFamily: 'var(--font-sans)' }}
+                  style={{ backgroundColor: 'var(--green-medical)', fontFamily: 'var(--font-sans)' }}
                 >
                   Ver Catálogo <ArrowRight size={16} />
                 </button>
@@ -117,7 +117,7 @@ export default function Home() {
                   className="rounded-2xl p-6 border"
                   style={{ backgroundColor: 'rgba(255,255,255,0.04)', borderColor: 'rgba(255,255,255,0.08)' }}
                 >
-                  <p className="text-3xl font-semibold mb-1" style={{ color: 'var(--cyan-clinical)', fontFamily: 'var(--font-mono)' }}>
+                  <p className="text-3xl font-semibold mb-1" style={{ color: 'var(--green-medical)', fontFamily: 'var(--font-mono)' }}>
                     {stat.value}
                   </p>
                   <p className="text-sm" style={{ color: 'rgba(255,255,255,0.5)' }}>{stat.label}</p>
@@ -144,7 +144,7 @@ export default function Home() {
             className="text-center mb-16"
           >
             <span className="text-xs tracking-[0.3em] uppercase font-medium mb-3 block"
-              style={{ color: 'var(--cyan-clinical)', fontFamily: 'var(--font-mono)' }}>
+              style={{ color: 'var(--green-medical)', fontFamily: 'var(--font-mono)' }}>
               Por que nos escolher
             </span>
             <h2 className="text-4xl" style={{ fontFamily: 'var(--font-serif)', color: 'var(--navy-deep)' }}>
@@ -158,16 +158,16 @@ export default function Home() {
                 key={i}
                 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="group p-8 hover:bg-[#0B1829] transition-all duration-300 cursor-default"
+                className="group p-8 hover:bg-[#0D3B66] transition-all duration-300 cursor-default"
               >
                 <span className="block text-5xl font-bold mb-5 transition-colors"
-                  style={{ fontFamily: 'var(--font-mono)', color: 'rgba(0,194,212,0.15)' }}
-                  onMouseEnter={e => (e.currentTarget.style.color = 'rgba(0,194,212,0.4)')}
-                  onMouseLeave={e => (e.currentTarget.style.color = 'rgba(0,194,212,0.15)')}
+                  style={{ fontFamily: 'var(--font-mono)', color: 'rgba(16,185,129,0.15)' }}
+                  onMouseEnter={e => (e.currentTarget.style.color = 'rgba(16,185,129,0.4)')}
+                  onMouseLeave={e => (e.currentTarget.style.color = 'rgba(16,185,129,0.15)')}
                 >
                   0{i + 1}
                 </span>
-                <f.icon className="w-7 h-7 mb-4 transition-colors" style={{ color: 'var(--cyan-clinical)' }} />
+                <f.icon className="w-7 h-7 mb-4 transition-colors" style={{ color: 'var(--green-medical)' }} />
                 <h3 className="text-lg mb-2 transition-colors group-hover:text-white"
                   style={{ fontFamily: 'var(--font-serif)', color: 'var(--navy-deep)' }}>
                   {f.title}
@@ -189,7 +189,7 @@ export default function Home() {
             <div className="flex items-end justify-between mb-12">
               <div>
                 <span className="text-xs tracking-[0.3em] uppercase font-medium mb-2 block"
-                  style={{ color: 'var(--cyan-clinical)', fontFamily: 'var(--font-mono)' }}>
+                  style={{ color: 'var(--green-medical)', fontFamily: 'var(--font-mono)' }}>
                   Seleção especial
                 </span>
                 <h2 className="text-4xl" style={{ fontFamily: 'var(--font-serif)', color: 'var(--navy-deep)' }}>
@@ -199,7 +199,7 @@ export default function Home() {
               <button
                 onClick={() => navigate("/catalogo")}
                 className="hidden md:flex items-center gap-2 text-sm font-medium transition-colors hover:opacity-70"
-                style={{ color: 'var(--cyan-clinical)' }}
+                style={{ color: 'var(--green-medical)' }}
               >
                 Ver todos <ChevronRight size={16} />
               </button>

@@ -6,17 +6,18 @@
 
 @layer base {
   :root {
-    --navy-deep: #0B1829;
-    --navy-mid: #162236;
-    --navy-light: #1E3251;
-    --cyan-clinical: #00C2D4;
-    --cyan-glow: rgba(0, 194, 212, 0.15);
-    --cyan-soft: #E0F7FA;
-    --platinum: #F5F7FA;
+    --navy-deep: #0D3B66;
+    --navy-mid: #1a5490;
+    --navy-light: #2E7CB8;
+    --green-medical: #10B981;
+    --green-dark: #059669;
+    --green-light: #D1FAE5;
+    --accent-orange: #F97316;
+    --platinum: #F8FAFC;
     --slate-border: #E2E8F0;
-    --amber-price: #F59E0B;
+    --amber-price: #EAB308;
     --white: #FFFFFF;
-    --text-primary: #0B1829;
+    --text-primary: #0F172A;
     --text-muted: #64748B;
     --green-whatsapp: #25D366;
 
@@ -25,14 +26,14 @@
     --font-mono: 'JetBrains Mono', monospace;
 
     /* Mapeamento para variáveis do shadcn/ui */
-    --primary: 188 100% 26%;
+    --primary: 142 72% 29%;
     --primary-foreground: 0 0% 100%;
-    --background: 210 25% 97%;
-    --foreground: 213 56% 11%;
+    --background: 210 40% 98%;
+    --foreground: 215 28% 6%;
     --muted: 210 20% 96%;
     --muted-foreground: 215 16% 47%;
     --border: 214 32% 91%;
-    --ring: 188 100% 26%;
+    --ring: 142 72% 29%;
   }
 }
 
@@ -109,14 +110,14 @@ h1, h2, h3 {
 }
 
 :root {
-  --primary: oklch(0.577 0.245 27.325);
+  --primary: oklch(0.577 0.245 142.495);
   --primary-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.577 0.245 27.325);
+  --sidebar-primary: oklch(0.577 0.245 142.495);
   --sidebar-primary-foreground: oklch(0.985 0 0);
-  --chart-1: oklch(0.577 0.245 27.325);
-  --chart-2: oklch(0.577 0.245 27.325);
+  --chart-1: oklch(0.577 0.245 142.495);
+  --chart-2: oklch(0.577 0.245 142.495);
   --chart-3: oklch(0.5 0.2 40);
-  --chart-4: oklch(0.577 0.245 27.325);
+  --chart-4: oklch(0.577 0.245 142.495);
   --chart-5: oklch(0.5 0.2 40);
   --radius: 0.65rem;
   --background: oklch(1 0 0);
@@ -145,9 +146,9 @@ h1, h2, h3 {
 }
 
 .dark {
-  --primary: oklch(0.577 0.245 27.325);
+  --primary: oklch(0.577 0.245 142.495);
   --primary-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.577 0.245 27.325);
+  --sidebar-primary: oklch(0.577 0.245 142.495);
   --sidebar-primary-foreground: oklch(0.985 0 0);
   --background: oklch(0.141 0.005 285.823);
   --foreground: oklch(0.85 0.005 65);
