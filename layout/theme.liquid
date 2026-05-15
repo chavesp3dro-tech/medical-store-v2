@@ -3,17 +3,72 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-
-  <title>{{ shop.name }}</title>
-
+  <title>{{ shop.name }} | BonsuMed</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   {{ 'theme.css' | asset_url | stylesheet_tag }}
-
   {{ content_for_header }}
 </head>
-
 <body>
 
-  {{ content_for_layout }}
+  <header class="site-header">
+    <div class="container">
+      <div class="header-wrapper">
+        <div class="logo">BonsuMed</div>
+        <nav class="main-nav">
+          <ul>
+            <li><a href="/">Início</a></li>
+            <li><a href="/collections/all">Produtos</a></li>
+            <li><a href="/pages/sobre-nos">Sobre Nós</a></li>
+            <li><a href="/pages/contato">Contato</a></li>
+          </ul>
+        </nav>
+        <div class="header-actions">
+          <a href="/cart" class="btn btn-primary" style="padding: 8px 16px; font-size: 14px;">Carrinho</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main role="main">
+    {{ content_for_layout }}
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-info">
+          <div class="logo" style="color: white; margin-bottom: 20px;">BonsuMed</div>
+          <p>Sua parceira de confiança em equipamentos e materiais hospitalares de alta qualidade.</p>
+        </div>
+        <div>
+          <h4 class="footer-title">Links Úteis</h4>
+          <ul class="footer-links">
+            <li><a href="/search">Buscar</a></li>
+            <li><a href="/pages/politica-de-privacidade">Privacidade</a></li>
+            <li><a href="/pages/termos-de-servico">Termos</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-title">Categorias</h4>
+          <ul class="footer-links">
+            <li><a href="#">Equipamentos</a></li>
+            <li><a href="#">Descartáveis</a></li>
+            <li><a href="#">Mobiliário</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-title">Contato</h4>
+          <p style="font-size: 14px;">Email: contato@bonsumed.com.br</p>
+          <p style="font-size: 14px;">Tel: (11) 9999-9999</p>
+        </div>
+      </div>
+      <div style="text-align: center; padding-top: 40px; border-top: 1px solid #2d3748; font-size: 12px;">
+        &copy; {{ 'now' | date: "%Y" }} BonsuMed Materiais Hospitalares. Todos os direitos reservados.
+      </div>
+    </div>
+  </footer>
 
 </body>
 </html>

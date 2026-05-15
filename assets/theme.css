@@ -1,61 +1,228 @@
-/* Estilos Gerais */
+/* 
+  BonsuMed - Professional Medical Theme
+  Design: Clean, Trustworthy, Modern
+*/
+
 :root {
-  --primary-color: #0056b3;
-  --secondary-color: #6c757d;
-  --success-color: #28a745;
-  --light-bg: #f8f9fa;
-  --dark-text: #343a40;
+  --primary: #004a99;
+  --primary-light: #e6f0ff;
+  --secondary: #00a8e8;
+  --accent: #2ecc71;
+  --text-dark: #1a2b3c;
+  --text-muted: #5a6c7f;
+  --bg-light: #f4f7f9;
   --white: #ffffff;
+  --border: #e1e8ed;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  --transition: all 0.3s ease;
 }
 
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  line-height: 1.6;
-  color: var(--dark-text);
+* {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: var(--text-dark);
+  line-height: 1.6;
+  background-color: var(--white);
+}
+
 .container {
-  max-width: 1200px;
+  max-width: 1280px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 24px;
 }
 
-/* Hero Section */
-.hero {
-  background-color: var(--light-bg);
-  padding: 80px 0;
-  text-align: center;
-  border-bottom: 1px solid #dee2e6;
-}
-
-.hero-title {
-  font-size: 2.5rem;
-  color: var(--primary-color);
-  margin-bottom: 20px;
-}
-
-.hero-subtitle {
-  font-size: 1.2rem;
-  color: var(--secondary-color);
-  margin-bottom: 30px;
+/* Typography */
+h1, h2, h3 {
+  font-weight: 700;
+  line-height: 1.2;
 }
 
 .btn {
-  display: inline-block;
-  padding: 12px 30px;
-  border-radius: 5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-weight: 600;
   text-decoration: none;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
+  cursor: pointer;
+  transition: var(--transition);
 }
 
 .btn-primary {
-  background-color: var(--primary-color);
+  background-color: var(--primary);
   color: var(--white);
 }
 
 .btn-primary:hover {
-  background-color: #004494;
+  background-color: var(--secondary);
+  transform: translateY(-2px);
+}
+
+/* Header */
+.site-header {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: var(--white);
+  z-index: 100;
+}
+
+.header-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: -1px;
+}
+
+.main-nav ul {
+  display: flex;
+  list-style: none;
+  gap: 32px;
+}
+
+.main-nav a {
+  text-decoration: none;
+  color: var(--text-dark);
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.main-nav a:hover {
+  color: var(--primary);
+}
+
+/* Hero Section */
+.hero {
+  background: linear-gradient(135deg, var(--primary-light) 0%, #ffffff 100%);
+  padding: 100px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 60px;
+}
+
+.hero-title {
+  font-size: 48px;
+  margin-bottom: 24px;
+  color: var(--primary);
+}
+
+.hero-subtitle {
+  font-size: 18px;
+  color: var(--text-muted);
+  margin-bottom: 40px;
+  max-width: 500px;
+}
+
+/* Categories */
+.section-title {
+  text-align: center;
+  margin-bottom: 48px;
+  font-size: 32px;
+}
+
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+  margin-bottom: 80px;
+}
+
+.category-card {
+  background: var(--bg-light);
+  padding: 40px;
+  border-radius: 16px;
+  text-align: center;
+  transition: var(--transition);
+  border: 1px solid transparent;
+}
+
+.category-card:hover {
+  background: var(--white);
+  border-color: var(--primary);
+  box-shadow: var(--shadow);
+  transform: translateY(-5px);
+}
+
+/* Features */
+.features {
+  background: var(--primary);
+  color: var(--white);
+  padding: 60px 0;
+  margin: 80px 0;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  text-align: center;
+}
+
+.feature-item h3 {
+  margin-bottom: 12px;
+}
+
+/* Footer */
+.site-footer {
+  background: #1a2b3c;
+  color: #a0aec0;
+  padding: 80px 0 40px;
+  margin-top: 80px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 60px;
+}
+
+.footer-title {
+  color: var(--white);
+  margin-bottom: 24px;
+  font-size: 18px;
+}
+
+.footer-links {
+  list-style: none;
+}
+
+.footer-links li {
+  margin-bottom: 12px;
+}
+
+.footer-links a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  color: var(--white);
+}
+
+@media (max-width: 768px) {
+  .hero-grid { grid-template-columns: 1fr; text-align: center; }
+  .hero-title { font-size: 36px; }
+  .features-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
 }
